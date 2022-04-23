@@ -1,8 +1,11 @@
-#include "implementation.h"
+// #include "implementation.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void nQueens(char board[n][n], int length, int column, int *solutions) {
+#define TRUE 1
+#define FALSE 0
+
+void nQueens(char **board, int length, int column, int *solutions) {
   int i;
 
   if (column >= length) {
@@ -18,15 +21,25 @@ void nQueens(char board[n][n], int length, int column, int *solutions) {
     }
 }
 
-void solveNQueens(char board[n][n], int length) {
+void solveNQueens(char **board, int length) {
   int solutions = 0;
+  int *deviceSolutions;
+  char *deviceBoard;
 
-  nQueens(board, length, 0, &solutions);
+  cudaMallocManaged((void **) &deviceSolutions, sizeof(int));
+  cudaMemcpy(deviceSolutions, &solutions, sizeof(int), cudaMemcpyHostToDevice);
+
+  cudaMallocManaged((void **) &deviceBoard, length * length * sizeof(char));
+  cudaMemcpy(deviceBoard, board, length * length * sizeof(char), cudaMemcpyHostToDevice);
+
+  dim3 threadsPerBlock(length, length);
+  
+  nQueens<<<1, threadsPerBlock>>>(&deviceBoard, length, 0, &solutions);
 
   printf("Number of solutions: %d\n", solutions);
 }
 
-int isSafe(char board[n][n], int length, int row, int column) {
+int isSafe(char **board, int length, int row, int column) {
   int i, j;
 
   for (i = 0; i < column; i++)

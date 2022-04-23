@@ -2,7 +2,8 @@
 #include <stdlib.h>
 #include <sys/time.h>
 
-#include "implementations/implementation.h"
+#include "lib/board.cu"
+#include "implementations/cuda.cu"
 
 void printTimeDifference(struct timeval t_ini, struct timeval t_fim);
 
@@ -10,11 +11,9 @@ int main(int argc, char **argv) {
   struct timeval t_ini, t_fim;
   gettimeofday(&t_ini, NULL);
 
-  n = strtol(argv[1], NULL, 10);
+  int n = strtol(argv[1], NULL, 10);
 
-  char chessboard[n][n];
-
-  initializeBoard(chessboard, n);
+  char **chessboard = initializeBoard(n);
 
   solveNQueens(chessboard, n);
 

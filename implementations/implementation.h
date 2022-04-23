@@ -3,5 +3,5 @@
 #define TRUE 1
 #define FALSE 0
 
-int solveNQueens(Board *board, int column);
-int isSafe(Board *board, int row, int column);
+void solveNQueens(char board[n][n], int length);
+int isSafe(char board[n][n], int length, int row, int column);

@@ -1,11 +1,4 @@
-typedef struct board {
-  char **board;
-  int queens;
-  int length;
-} Board;
+int n;
 
-Board *createBoard(int n);
-void addQueen(Board *board, int row, int column);
-void removeQueen(Board *board, int row, int column);
-void cleanBoard(Board *board);
-void printBoard(Board *board);
+void initializeBoard(char board[n][n], int length);
+void printBoard(char board[n][n], int length);

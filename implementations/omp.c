@@ -1,152 +1,81 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <omp.h>
+#include <locale.h>
 
 #include "implementation.h"
 
-int solveNQueens(Board *board, int column) {
-  int i;
+void printBoard2(char board[n][n], int length) {
+  int i, j;
 
-  if (column >= board->length)
-    return TRUE;
+  printf("Board %dx%d\n", length, length);
 
-  #pragma omp parallel
-  #pragma omp for private(board, column)
-  for (i = 0; i < board->length; i++) {
-    if (isSafe(board, i, column)) {
-      #pragma omp task firstprivate(board, i, column)
-      {
-        addQueen(board, i, column);
-        if (!solveNQueens(board, column + 1)) {
-          removeQueen(board, i, column);
-        }
-      }
-    }
-    // #pragma omp taskwait
+  for (i = 0; i < length; i++) {
+    for (j = 0; j < length; j++)
+      printf("[%c]", board[i][j]);
+    printf("\n");
   }
-
-
-  return board->queens == board->length;
 }
 
-// int solveNQueens(Board *board, int column, int solved) {
-//   if (column >= board->length)
-//     return TRUE;
+void nQueens(char board[n][n], int length, int column, int *solutions) {
 
-//   if (solved)
-//     return TRUE;
+  char copy[n][n];
 
-//   int i;
+  int i;
 
+  if (column >= length) {
+    #pragma omp atomic
+    (*solutions)++;
+    return;
+  }
 
-//   for (i = 0; i < board->length; i++) {
-//     if (isSafe(board, i, column) && !solved) {
-//       board->board[i][column] = 'Q';
+  for (i = 0; i < length; i++) {
+    if (isSafe(board, length, i, column)) {
+      memcpy(copy, board, length * length * sizeof(char));
 
-//       #pragma omp task firstprivate(board, column)
-//       {
-//         if (solveNQueens(board, column + 1, solved))
-//           solved = TRUE;
+      #pragma omp task firstprivate(column)
+      {
+        copy[i][column] = 'Q';
+        nQueens(copy, length, column + 1, solutions);
+        copy[i][column] = ' ';
+      }
+    }
+  }
+}
 
-//         if (!solved)
-//           board->board[i][column] = ' ';
-//       }
-//     }
-//   }
+void solveNQueens(char board[n][n], int length) {
+  int i, solutions = 0;
 
-//   printf("===COLUMN #%d===SOLVED #%s===\n", column, solved ? "True" : "False");
-//   printBoard(board);
-//   // #pragma omp taskwait
-//   return solved;
-// }
+  #pragma omp parallel
+  {
+    #pragma omp single
+    {
+      #pragma omp taskgroup
+      {
+        nQueens(board, length, 0, &solutions);
+      }
+    }
+  }
 
-// int solveNQueens(Board *board) {
-//   int i, column, lastRow[board->length];
+  setlocale(LC_NUMERIC, "");
 
-//   for(i = 0; i < board->length; i++)
-//     lastRow[i] = 0;
+  printf("Number of solutions: %'d\n", solutions);
+}
 
-//   column = 0;
-//   // #pragma omp parallel for
-//   while (column < board->length) {
-//     for (i = lastRow[column]; i < board->length; i++) {
-//       if (isSafe(board, i, column)) {
-//         board->board[i][column] = 'Q';
-//         lastRow[column++] = i;
-//         i = board->length;
-//       } else if (i == (board->length - 1)) {
-//         lastRow[column] = 0;
-//         column--;
-//         if (column >= 0) {
-//           board->board[lastRow[column]][column] = ' ';
-//           if (lastRow[column] < board->length - 1)
-//             lastRow[column]++;
-//           else {
-//             lastRow[column] = 0;
-//             column--;
-//             if (column >= 0) {
-//               board->board[lastRow[column]][column] = ' ';
-//               lastRow[column]++;
-//             }
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   if (column < 0) {
-//     return FALSE;
-//   }
-
-//   return TRUE;
-// }
-
-// int solveNQueens(Board *board, int column) {
-//   if (column >= board->length)
-//     return TRUE;
-
-//   int i, solved = 0;
-
-//   #pragma omp parallel shared(solved)
-//   {
-//     #pragma omp for
-//     for (i = 0; i < board->length; i++) {
-//       if (isSafe(board, i, column) && !solved) {
-//         board->board[i][column] = 'Q';
-
-//         #pragma omp task
-//         {
-//           if (solveNQueens(board, column + 1)) {
-//             solved = 1;
-//           }
-
-//           if (!solved) {
-//             board->board[i][column] = ' ';
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   if (solved) {
-//     return TRUE;
-//   }
-
-//   return FALSE;
-// }
-
-int isSafe(Board *board, int row, int column) {
+int isSafe(char board[n][n], int length, int row, int column) {
   int i, j;
 
   for (i = 0; i < column; i++)
-    if (board->board[row][i] == 'Q')
+    if (board[row][i] == 'Q')
       return FALSE;
 
   for (i = row, j = column; i >= 0 && j >= 0; i--, j--)
-    if (board->board[i][j] == 'Q')
+    if (board[i][j] == 'Q')
         return FALSE;
 
-  for (i = row, j = column; j >= 0 && i < board->length; i++, j--)
-    if (board->board[i][j] == 'Q')
+  for (i = row, j = column; j >= 0 && i < length; i++, j--)
+    if (board[i][j] == 'Q')
       return FALSE;
 
   return TRUE;
