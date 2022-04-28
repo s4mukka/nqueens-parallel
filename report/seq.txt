@@ -1,0 +1,24 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 238K of event 'cycles:u'
+# Event count (approx.): 45347008537
+#
+# Overhead  Command   Shared Object     Symbol                  
+# ........  ........  ................  ........................
+#
+    87.18%  n_queens  n_queens          [.] isSafe
+    12.80%  n_queens  n_queens          [.] nQueens
+     0.02%  n_queens  [unknown]         [k] 0xffffffff8de00ae7
+     0.00%  n_queens  ld-2.31.so        [.] _dl_lookup_symbol_x
+     0.00%  n_queens  libc-2.31.so      [.] init_cacheinfo
+     0.00%  n_queens  ld-2.31.so        [.] _dl_important_hwcaps
+     0.00%  n_queens  ld-2.31.so        [.] __GI___tunables_init
+     0.00%  n_queens  ld-2.31.so        [.] _dl_start
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

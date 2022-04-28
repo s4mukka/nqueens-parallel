@@ -1,0 +1,92 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 129  of event 'cycles:u'
+# Event count (approx.): 24804169
+#
+# Overhead  Command         Shared Object         Symbol                           
+# ........  ..............  ....................  .................................
+#
+    12.10%  n_queens        [unknown]             [k] 0xffffffffa7200ae7
+     6.08%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001f3728
+     4.41%  n_queens        ld-2.31.so            [.] do_lookup_x
+     3.82%  n_queens        libpthread-2.31.so    [.] __pthread_mutex_unlock
+     3.42%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003310de
+     3.03%  n_queens        [vdso]                [.] 0x00000000000006c8
+     2.71%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001ebe7c
+     2.62%  n_queens        libc-2.31.so          [.] __memmove_sse2_unaligned_erms
+     2.11%  n_queens        ld-2.31.so            [.] _dl_lookup_symbol_x
+     2.06%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000280f1f
+     1.95%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000283130
+     1.93%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001a0d2b
+     1.91%  n_queens        libc-2.31.so          [.] __vfscanf_internal
+     1.91%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003310d1
+     1.90%  n_queens        libc-2.31.so          [.] __strcmp_avx2
+     1.86%  n_queens        libcuda.so.510.47.03  [.] 0x000000000027c2d9
+     1.84%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001ebe64
+     1.76%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000273eeb
+     1.69%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001ae5ed
+     1.68%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000167940
+     1.62%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003310e2
+     1.61%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001f371c
+     1.61%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001a5e4d
+     1.58%  n_queens        libcuda.so.510.47.03  [.] 0x00000000004163ac
+     1.55%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001f3720
+     1.54%  n_queens        libc-2.31.so          [.] malloc
+     1.51%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003c6e72
+     1.46%  n_queens        libcuda.so.510.47.03  [.] qsort@plt
+     1.42%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003e3313
+     1.38%  n_queens        libcuda.so.510.47.03  [.] 0x000000000019afb2
+     1.34%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003c85aa
+     1.23%  n_queens        libpthread-2.31.so    [.] __pthread_getspecific
+     1.13%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001c317f
+     1.12%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002fa75f
+     1.07%  n_queens        libc-2.31.so          [.] _dl_addr
+     1.01%  n_queens        libcuda.so.510.47.03  [.] 0x000000000018c606
+     0.98%  n_queens        libc-2.31.so          [.] __strlen_avx2
+     0.97%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001ebe68
+     0.94%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001ebe71
+     0.91%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002fc5e4
+     0.91%  n_queens        libcuda.so.510.47.03  [.] 0x000000000021f40e
+     0.86%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002840e6
+     0.83%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002a5f49
+     0.74%  n_queens        libc-2.31.so          [.] _int_malloc
+     0.74%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002bd167
+     0.68%  n_queens        libcuda.so.510.47.03  [.] 0x00000000001d5880
+     0.57%  n_queens        libpthread-2.31.so    [.] __pthread_mutex_lock
+     0.55%  n_queens        ld-2.31.so            [.] strcmp
+     0.52%  n_queens        ld-2.31.so            [.] _dl_relocate_object
+     0.45%  n_queens        libcuda.so.510.47.03  [.] 0x000000000026df2a
+     0.40%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003494cf
+     0.32%  n_queens        libcuda.so.510.47.03  [.] 0x00000000002238d3
+     0.32%  n_queens        libc-2.31.so          [.] __vfprintf_internal
+     0.31%  n_queens        libc-2.31.so          [.] 0x0000000000022564
+     0.31%  n_queens        [unknown]             [k] 0xffffffffa7200163
+     0.31%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000349e86
+     0.31%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000349504
+     0.30%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000178c61
+     0.30%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000280edb
+     0.30%  n_queens        libcuda.so.510.47.03  [.] 0x000000000018c5bf
+     0.30%  cuda-EvtHandlr  libcuda.so.510.47.03  [.] read@plt
+     0.30%  cuda-EvtHandlr  [unknown]             [.] 0000000000000000
+     0.30%  n_queens        libcuda.so.510.47.03  [.] 0x0000000000280ce0
+     0.30%  n_queens        libcuda.so.510.47.03  [.] 0x00000000003486e0
+     0.29%  n_queens        libc-2.31.so          [.] _IO_default_xsputn
+     0.28%  n_queens        libcuda.so.510.47.03  [.] 0x000000000040950c
+     0.27%  n_queens        libc-2.31.so          [.] __getpagesize
+     0.25%  n_queens        libc-2.31.so          [.] __sysconf
+     0.25%  n_queens        libcuda.so.510.47.03  [.] 0x000000000042bdfa
+     0.22%  n_queens        ld-2.31.so            [.] __GI___tunables_init
+     0.19%  cuda-EvtHandlr  libcuda.so.510.47.03  [.] 0x0000000000261ee0
+     0.15%  n_queens        libc-2.31.so          [.] __ctype_init
+     0.05%  cuda-EvtHandlr  libc-2.31.so          [.] __ctype_init
+     0.03%  cuda-EvtHandlr  libpthread-2.31.so    [.] start_thread
+     0.01%  cuda-EvtHandlr  [unknown]             [k] 0xffffffffa7200ae7
+     0.01%  cuda-EvtHandlr  libc-2.31.so          [.] __clone
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

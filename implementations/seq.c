@@ -2,20 +2,74 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// void nQueens(char board[n][n], int length, int column, int *solutions) {
+//   int i;
+
+//   if (column >= length) {
+//     (*solutions)++;
+//     return;
+//   }
+
+//   for (i = 0; i < length; i++)
+//     if (isSafe(board, length, i, column)) {
+//       board[i][column] = 'Q';
+//       nQueens(board, length, column + 1, solutions);
+//       board[i][column] = ' ';
+//     }
+// }
+
 void nQueens(char board[n][n], int length, int column, int *solutions) {
-  int i;
+  int i, lastRow[length];
 
-  if (column >= length) {
-    (*solutions)++;
-    return;
-  }
+  for(i = 0; i < length; i++)
+    lastRow[i] = 0;
 
-  for (i = 0; i < length; i++)
-    if (isSafe(board, length, i, column)) {
-      board[i][column] = 'Q';
-      nQueens(board, length, column + 1, solutions);
-      board[i][column] = ' ';
+  while (1) {
+    
+    if (column < 0) {
+      return;
     }
+
+    if (column >= length) {
+      board[i][--column] = ' ';
+      if (lastRow[column] < length - 1)
+        lastRow[column]++;
+      else {
+        lastRow[column] = 0;
+        column--;
+        if (column >= 0) {
+          board[lastRow[column]][column] = ' ';
+          lastRow[column]++;
+        }
+      }
+      (*solutions)++;
+    }
+
+    for (i = lastRow[column]; i < length; i++) {
+      if (isSafe(board, length, i, column)) {
+        board[i][column] = 'Q';
+        lastRow[column++] = i;
+        break;
+      } else if (i == (length - 1)) {
+        lastRow[column] = 0;
+        column--;
+
+        if (column >= 0) {
+          board[lastRow[column]][column] = ' ';
+          if (lastRow[column] < length - 1)
+            lastRow[column]++;
+          else {
+            lastRow[column] = 0;
+            column--;
+            if (column >= 0) {
+              board[lastRow[column]][column] = ' ';
+              lastRow[column]++;
+            }
+          }
+        }
+      }
+    }
+  }
 }
 
 void solveNQueens(char board[n][n], int length) {

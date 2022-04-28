@@ -1,5 +1,5 @@
 CC=gcc
-FLAGS=-O3 -Wall
+FLAGS=
 N?=32
 
 cseq: n_queens.c lib/board.o implementations/seq.o
@@ -8,8 +8,11 @@ cseq: n_queens.c lib/board.o implementations/seq.o
 comp: n_queens.c lib/board.o implementations/omp.o
 	$(CC) n_queens.c lib/board.o implementations/omp.o $(FLAGS) -fopenmp -o n_queens
 
-# ccuda: n_queens.c lib/board.o implementations/cuda.o
-#   $(CC) n_queens.c lib/board.o implementations/cuda.o $(FLAGS) -o n_queens
+ccuda:
+	nvcc -o n_queens n_queens.cu $(FLAGS)
+
+boardc: lib/board.c lib/board.h
+	nvcc lib/board.cu -c -o lib/board.o
 
 lib/board.o: lib/board.c lib/board.h
 	$(CC) lib/board.c -c -o lib/board.o
